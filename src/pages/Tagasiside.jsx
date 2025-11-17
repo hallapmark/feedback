@@ -22,7 +22,7 @@ function Tagasiside() {
           <button>Tagasi</button>
       </Link>
       {tagasisided.map((t, i) =>
-        <div key={t}>
+        <div key={t} style={{justifyContent: "center", display: "flex"}}>
           <div>{t}</div>
           <button onClick={() => kustuta(i)}>X</button>
         </div>
