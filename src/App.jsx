@@ -3,6 +3,7 @@ import './App.css'
 import { Link, Route, Routes } from 'react-router-dom'
 import Tagasiside from './pages/Tagasiside'
 import TagasisideAndjad from './pages/TagasisideAndjad'
+import Tegevused from './pages/Tegevused'
 
 function App() {
 
@@ -14,11 +15,15 @@ function App() {
       <Link to="/tagasisideandjad">
         <button>Tagasiside andjad</button>
       </Link>
+      <Link to="/tegevused">
+        <button>Tegevused</button>
+      </Link>
 
       <Routes>
         <Route path="/" element={ <div>Tere!</div> } />
         <Route path="/tagasiside" element={ <Tagasiside /> } />
         <Route path="/tagasisideandjad" element={ <TagasisideAndjad /> } />
+        <Route path="/tegevused" element={ <Tegevused /> } />
       </Routes>
     </>
   )

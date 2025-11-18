@@ -1,3 +1,3 @@
 # Tagasiside / Feedback project
 
-Homework for the React bootcamp. Practice input, useRef, useState
+Homework for the React bootcamp. Practice input, useRef, useState. 
