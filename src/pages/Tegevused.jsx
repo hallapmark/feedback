@@ -3,36 +3,56 @@ import tegevusedDB from "../data/tegevused.json"
 
 function Tegevused() {
   const [tegevused, setTegevused] = useState(tegevusedDB.items.slice());
-  const [kuvaKasutaja1Tegevused, setKuvaKasutaja1Tegevused] = useState(false);
-  const [kuvaKasutaja2Tegevused, setKuvaKasutaja2Tegevused] = useState(false);
-  const [kuvaKasutaja3Tegevused, setKuvaKasutaja3Tegevused] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const tegevusedKasutajal = id => tegevused.filter(tegevus => tegevus.user_id === id);
+  const handleUserClick = id => setCurrentUser(prevUser => (prevUser === id ? null : id));
+  const kuvaValmis = () => {
+    const answer = tegevusedDB.items.filter(tegevus => tegevus.is_complete);
+    setTegevused(answer);
+  }
+  const kuvaMitteValmis = () => {
+    const answer = tegevusedDB.items.filter(tegevus => !tegevus.is_complete);
+    setTegevused(answer);
+  }
+  const tT2hega = () => {
+    const answer = tegevusedDB.items.filter(tegevus => tegevus.text.toLowerCase().startsWith("t"));
+    setTegevused(answer);
+  }
+  const rohkemKui20T2hem2rki = () => {
+    const answer = tegevusedDB.items.filter(tegevus => tegevus.text.length > 20);
+    setTegevused(answer);
+  }
+  const reset = () => {
+    setTegevused(tegevusedDB.items.slice());
+  }
 
   return (
     <div>
-      <h1>{tegevused.length} tegevust</h1> <br />
-      <div style={{display:"flex"}}>
-        <div style={{display:"flex", flexDirection:"column"}}>
-          <button onClick={() => setKuvaKasutaja1Tegevused(!kuvaKasutaja1Tegevused)}>Kasutaja 1 tegevused</button>
-          {kuvaKasutaja1Tegevused && 
-          tegevusedKasutajal(1).map((tegevus) => 
-            <div key={tegevus.id}>{tegevus.text}</div>
-          )}
-        </div>
-        <div style={{display:"flex", flexDirection:"column"}}>
-          <button onClick={() => setKuvaKasutaja2Tegevused(!kuvaKasutaja2Tegevused)}>Kasutaja 2 tegevused</button>
-          {kuvaKasutaja2Tegevused && tegevusedKasutajal(2).map((tegevus) => 
-            <div key={tegevus.id}>{tegevus.text}</div>
-          )}
-        </div>
-        <div style={{display:"flex", flexDirection:"column"}}>
-          <button onClick={() => setKuvaKasutaja3Tegevused(!kuvaKasutaja3Tegevused)}>Kasutaja 3 tegevused</button>
-          {kuvaKasutaja3Tegevused && tegevusedKasutajal(3).map((tegevus) => 
-            <div key={tegevus.id}>{tegevus.text}</div>
-          )}
-        </div>
+      <br />
+      <div style={{ display:"flex", gap: "1rem", justifyContent: "space-between"}}>
+        {[1,2,3].map(userId => (
+          <div key={userId} style={{ display: "flex", flexDirection: "column" }}>
+            <button onClick={() => handleUserClick(userId)}>
+              Kasutaja {userId} tegevused
+            </button>
+            {currentUser === userId &&
+              tegevusedKasutajal(userId).map(tegevus => 
+                <div key={tegevus.id}>{tegevus.text}</div>
+            )}
+          </div>
+        ))}
       </div>
+      <br />
+      <div style={{ display:"flex", gap: "1rem", justifyContent: "space-between"}}>
+        <button onClick={kuvaValmis}>Valmis tegevused</button>
+        <button onClick={kuvaMitteValmis}>Mittevalmis tegevused</button>
+        <button onClick={tT2hega}>t tähega algavad tegevused</button>
+        <button onClick={rohkemKui20T2hem2rki}>Rohkem kui 20 tähemärki</button>
+        <button onClick={reset}>Reset</button>
+      </div>
+      <hr />
+      <h1>{tegevused.length} tegevust</h1> <br />
       {tegevused.map((tegevus) => 
         <div key={tegevus.id}>
           <h2>{tegevus.id}. {tegevus.text}</h2>
