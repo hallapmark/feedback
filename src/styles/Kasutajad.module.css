@@ -1,0 +1,83 @@
+.usercard {
+  container-type: inline-size;
+  background: rgb(112, 109, 46);
+  color: #F3EED9;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  flex: 1 1  v;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.username {
+  margin: 2px 0;
+}
+
+.email {
+  font-size: 0.9rem;
+}
+
+
+.cardbody {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap; 
+  flex-direction: row;
+  transition: flex-direction 0.2s ease, gap 0.2s ease; 
+}
+
+@container (max-width: 360px) {
+  .cardbody {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.section {
+  flex-basis: 110px;
+  flex-grow: 1;
+  min-width: 0; 
+}
+
+.section h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding-bottom: 4px;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.company {
+  flex-shrink: 1;
+}
+
+.address {
+  flex-shrink: 2;
+}
+
+.section p,
+.section strong {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.25);
+  padding-top: 10px;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
