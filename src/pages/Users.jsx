@@ -15,18 +15,78 @@ function Users() {
     setUsers(answer);
   }
 
+  function posLng() {
+    const answer = users.filter(user => Number(user.address.geo.lng) > 0);
+    setUsers(answer);
+  }
+
+  function sortByLat() {
+    const answer = users.toSorted((a,b) => { 
+      return Number(b.address.geo.lat) - Number(a.address.geo.lat);
+    });
+    setUsers(answer);
+  }
+
+  function addToPhoneNo() {
+    const answer = users.map(user => ({...user, phone: "000-" + user.phone}));
+    setUsers(answer);
+  }
+
+  function replaceAInCatchPhrase() {
+    const answer = users.map(user => (
+      {...user, company: {...user.company, catchPhrase: user.company.catchPhrase.replaceAll("a", "e")}}
+      ));
+    setUsers(answer);
+  }
+
+  function findIndexAndDelete(user) {
+    const index = users.indexOf(user);
+    // findIndex vist oleks kindlam
+    const usersCopy = users.slice();
+    usersCopy.splice(index, 1);
+    setUsers(usersCopy);
+  }
+
+  function findLucio() {
+    const index = users.findIndex(u => u.email.toLowerCase() === "lucio_hettinger@annie.ca");
+    console.log(index);
+  }
+
+  function findBeginsWithC() {
+    const user = users.find(u => u.name.toLowerCase().substring(0,1) === "c");
+    console.log(JSON.stringify(user));
+  }
+
+  function addIds() {
+    let sum = 0;
+    for (const user of users) {
+      sum += user.id;
+    }
+    console.log(sum);
+  }
+
+  function emails() {
+    const emailsArray = users.map(user => user.email);
+    console.log(emailsArray);
+  }
+
   return (
     <div>
       <h1>Users</h1>
       <ButtonGroup variant="outlined" aria-label="Basic button group" style={{margin: "8px"}}>
         <Button onClick={tenCharsOrMore} color="secondary">Username ten or more chars</Button>
-        <Button color="secondary">Two</Button>
-        <Button color="secondary">Three</Button>
+        <Button onClick={posLng} color="secondary">Show only pos longitude</Button>
       </ButtonGroup>
       <ButtonGroup variant="outlined" aria-label="Basic button group" style={{margin: "8px"}}>
-        <Button color="secondary">One</Button>
-        <Button color="secondary">Two</Button>
-        <Button color="secondary">Three</Button>
+        <Button onClick={findLucio} color="secondary">Find Lucio</Button>
+        <Button onClick={findBeginsWithC} color="secondary">Find begins with C</Button>
+        <Button onClick={addIds} color="secondary">Add ids</Button>
+      </ButtonGroup>
+      <ButtonGroup variant="outlined" aria-label="Basic button group" style={{margin: "8px"}}>
+        <Button onClick={sortByLat} color="secondary">Sort by lat</Button>
+        <Button onClick={addToPhoneNo} color="secondary">Add to phone no</Button>
+        <Button onClick={replaceAInCatchPhrase} color="secondary">Replace a</Button>
+        <Button onClick={emails} color="secondary">Console emails</Button>
       </ButtonGroup>
       <ButtonGroup variant="outlined" aria-label="Basic button group" style={{margin: "8px"}}>
         <Button onClick={reset} color="secondary">Reset</Button>
@@ -68,6 +128,7 @@ function Users() {
               <div className={styles.footer}>
                 <p>📞 {user.phone}</p>
                 <p>{user.website}</p>
+                <button onClick={() => findIndexAndDelete(user)}>Delete user</button>
               </div>
             </div>
             )
