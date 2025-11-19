@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import Tagasiside from './pages/Tagasiside'
 import TagasisideAndjad from './pages/TagasisideAndjad'
 import Tegevused from './pages/Tegevused'
-import Kasutajad from './pages/Kasutajad'
+import Users from './pages/Users'
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
         <Route path="/tagasiside" element={ <Tagasiside /> } />
         <Route path="/tagasisideandjad" element={ <TagasisideAndjad /> } />
         <Route path="/tegevused" element={ <Tegevused /> } />
-        <Route path="/kasutajad" element={ <Kasutajad /> } />
+        <Route path="/kasutajad" element={ <Users /> } />
       </Routes>
     </>
   )
